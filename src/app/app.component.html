@@ -1,0 +1,38 @@
+<h1>{{ title }}</h1>
+<!-- <form novalidate [formGroup]='mygroup'>
+  name:<input type="text" formControlName="name">
+  Location:<input type="text" formControlName="location">
+</form> -->
+<form novalidate (submit)="onSubmit(user)" [formGroup]="user">
+  <label>
+    <span>Full Name</span>
+    <input type="text" formControlName="name" />
+  </label>
+  <div
+    class="error"
+    *ngIf="user.get('name').hasError('required') && user.get('name').touched"
+  >
+    <span>Name is required</span>
+  </div>
+  <div
+    class="error"
+    *ngIf="user.get('name').hasError('minlength') && user.get('name').touched"
+  >
+    <span>minimum length must be 5</span>
+  </div>
+  <div formGroupName="account">
+    <label>
+      <span>Email Address</span>
+      <input type="email" placeholder="type ur email" formControlName="email" />
+    </label>
+    <label>
+      <span> Confirm Email Address</span>
+      <input
+        type="email"
+        placeholder="type ur email"
+        formControlName="confirm"
+      />
+    </label>
+  </div>
+  <button type="submit" [disabled]="!user.valid">Sign up</button>
+</form>
